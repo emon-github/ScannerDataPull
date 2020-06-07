@@ -35,5 +35,6 @@ namespace ScannerDataPull
 
         public string personType { get; set; }
         public string job { get; set; }
+        public DateTime ORDER_BY_DERIVED_0 { get; set; }
     }
 }

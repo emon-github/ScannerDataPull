@@ -51,28 +51,9 @@ namespace ScannerDataPull
         public string dataType { get; set; }
 
         public string validateTime { get; set; }
+        public string client { get; set; }
+        public string onlineStatus { get; set; }
     }
 
-    public partial class Device1
-    {
-        public string id { get; set; }
-        public string deptId { get; set; }
-        public string deptName { get; set; }
-        public string password { get; set; }
-        public string status { get; set; }
-        public string sn { get; set; }
-        public string softVersion { get; set; }
-        public string equipName { get; set; }
-        public string ip { get; set; }
-        public string isBind { get; set; }
-        public string onlineStatus { get; set; }
-        public string snapState { get; set; }
-        public string faceState { get; set; }
-        public string camerasNumber { get; set; }
-        public string keypadState { get; set; }
-        public string newworkType { get; set; }
-        public string discDuration { get; set; }
-        public string systemCode { get; set; }
-        public string validateTime { get; set; }
-    }
+   
 }

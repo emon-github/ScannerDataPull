@@ -14,7 +14,7 @@ namespace ScannerDataPull
 
         public virtual DbSet<AccessRecord> AccessRecords { get; set; }
         public virtual DbSet<Device> Devices { get; set; }
-        public virtual DbSet<Device1> Devices1 { get; set; }
+      //  public virtual DbSet<Device1> Devices1 { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

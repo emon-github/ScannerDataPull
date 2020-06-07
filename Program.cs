@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -83,6 +84,11 @@ namespace ScannerDataPull
                             {
                                 _db.Devices.Add(item);
                             }
+                            else
+                            {
+                                item.client = entity.client;
+                                _db.Entry(entity).CurrentValues.SetValues(item);
+                            }
                         }
                         _db.SaveChanges();
                     }
@@ -134,6 +140,10 @@ namespace ScannerDataPull
                                             if (entity == null)
                                             {
                                                 _db.Staffs.Add(item);
+                                            }
+                                            else
+                                            {
+                                                _db.Entry(entity).CurrentValues.SetValues(item);
                                             }
                                         }
                                     }
