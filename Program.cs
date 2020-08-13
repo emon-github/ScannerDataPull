@@ -15,14 +15,19 @@ namespace ScannerDataPull
     {
         public static ModelContext _db = new ModelContext();
         public static string _token = "";
+        public static int hr = 1;
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Start-" + DateTime.Now.ToLongDateString() + "::" + DateTime.Now.ToLongTimeString());
             SetLoginToken().Wait();
-
+            Console.WriteLine("Token-" + DateTime.Now.ToLongDateString() + "::" + DateTime.Now.ToLongTimeString());
             GetDeviceData().Wait();
+            Console.WriteLine("Device-" + DateTime.Now.ToLongDateString() + "::" + DateTime.Now.ToLongTimeString());
             GetStaffData().Wait();
+            Console.WriteLine("Staff-" + DateTime.Now.ToLongDateString() + "::" + DateTime.Now.ToLongTimeString());
             GetAccessData().Wait();
+            Console.WriteLine("End-Access Record-" + DateTime.Now.ToLongDateString() + "::" + DateTime.Now.ToLongTimeString());           
         }
 
         static public async Task SetLoginToken()
@@ -134,20 +139,25 @@ namespace ScannerDataPull
                                 {
                                     foreach (var item in list)
                                     {
+                                        ////===
+                                        DateTime dt = item.ORDER_BY_DERIVED_0;
+
+                                        if ((DateTime.Now - dt).TotalHours > hr)
+                                        {
+                                            return;
+                                        }
+                                        ////==
                                         if (!string.IsNullOrEmpty(item.photoUrl))
                                         {
                                             var entity = _db.Staffs.Where(_ => _.phone == item.phone).SingleOrDefault();
                                             if (entity == null)
                                             {
                                                 _db.Staffs.Add(item);
-                                            }
-                                            else
-                                            {
-                                                _db.Entry(entity).CurrentValues.SetValues(item);
+                                                _db.SaveChanges();
                                             }
                                         }
                                     }
-                                    _db.SaveChanges();
+                                   
                                 }
                             }
                         }
@@ -198,13 +208,22 @@ namespace ScannerDataPull
                                 {
                                     foreach (var item in list)
                                     {
+                                        // // ===
+                                        DateTime dt = item.recordTime;                                       
+                                        if ((DateTime.Now - dt).TotalHours > hr)
+                                        {
+                                            return;
+                                        }
+                                        ////  ==
+
                                         var entity = _db.AccessRecords.Where(_ => _.id == item.id).SingleOrDefault();
                                         if (entity == null)
                                         {
                                             _db.AccessRecords.Add(item);
+                                            _db.SaveChanges();
                                         }
                                     }
-                                    _db.SaveChanges();
+                                   
                                 }
                             }
                         }
